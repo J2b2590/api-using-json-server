@@ -8,6 +8,7 @@ import ToyForm from "./components/ToyForm";
 
 function App() {
   const [toys, setToys] = useState([]);
+  const [newToy, setNewToy] = useState([]);
   const [toyForm, setToyForm] = useState(false);
 
   useEffect(() => {
@@ -20,9 +21,20 @@ function App() {
       setToys(resp.data);
     });
   };
+  const addNewToy = () => {
+    axios.post("http://localhost:8000/toys", newToy).then((resp) => {
+      console.log(resp);
+      let updatedToys = [...toys, resp.data];
+      setToys(updatedToys);
+    });
+  };
 
-  const addToy = (e) => {
-    console.log(e, "addToy");
+  const handleChangeOfToy = (e) => {
+    e.preventDefault();
+
+    // console.log(e.target.value, "addToy");
+    setNewToy({ ...newToy, [e.target.name]: e.target.value });
+    console.log(newToy, "new TOy");
   };
 
   const addLike = (toy) => {
@@ -56,7 +68,13 @@ function App() {
     <div className="App">
       <h1>Toy bin</h1>
       <Button onClick={() => flipForm()}>Add Toy</Button>
-      {toyForm ? <ToyForm /> : null}
+      {toyForm ? (
+        <ToyForm
+          handleChangeOfToy={handleChangeOfToy}
+          addNewToy={addNewToy}
+          toys={toys}
+        />
+      ) : null}
 
       <ToyContainer addLike={addLike} toys={toys} />
     </div>
