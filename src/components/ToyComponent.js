@@ -5,15 +5,18 @@ function ToyComponent({ toy, addLike }) {
   let id = toy.id;
   return (
     <Card style={{ width: "15rem" }}>
-      <Card.Img
-        style={{
-          justifySelf: "center",
-          height: "12rem",
-          width: "auto",
-        }}
-        variant="top"
-        src={imgSrc}
-      />
+      {{ imgSrc } ? (
+        <Card.Img
+          style={{
+            justifySelf: "center",
+            height: "12rem",
+            width: "auto",
+          }}
+          variant="top"
+          src={imgSrc}
+          alt="no image"
+        />
+      ) : null}
       <Card.Body>
         <Card.Title>{toy.name}</Card.Title>
 

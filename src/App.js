@@ -33,7 +33,7 @@ function App() {
     e.preventDefault();
 
     // console.log(e.target.value, "addToy");
-    setNewToy({ ...newToy, [e.target.name]: e.target.value });
+    setNewToy({ ...newToy, [e.target.name]: e.target.value, likes: 0 });
     console.log(newToy, "new TOy");
   };
 
