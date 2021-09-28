@@ -56,6 +56,10 @@ function App() {
       });
   };
 
+  const deleteToy = () => {
+    console.log("del toy");
+  };
+
   const flipForm = () => {
     if (toyForm == false) {
       setToyForm(true);
@@ -76,7 +80,7 @@ function App() {
         />
       ) : null}
 
-      <ToyContainer addLike={addLike} toys={toys} />
+      <ToyContainer addLike={addLike} toys={toys} deleteToy={deleteToy} />
     </div>
   );
 }

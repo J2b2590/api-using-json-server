@@ -1,10 +1,10 @@
 import ToyComponent from "../components/ToyComponent";
 import { Container, Row, Col } from "react-bootstrap";
 
-function ToyContainer({ toys, addLike }) {
+function ToyContainer({ toys, addLike, deleteToy }) {
   return (
     <Container style={{ justifyContent: "space-around", alignItems: "center" }}>
-      <Row md={2}>
+      <Row md={3}>
         {toys.map((toy) => {
           //   console.log(toy);
           return (
@@ -15,7 +15,7 @@ function ToyContainer({ toys, addLike }) {
                 textAlign: "-webkit-center",
               }}
             >
-              <ToyComponent addLike={addLike} toy={toy} />
+              <ToyComponent addLike={addLike} toy={toy} deleteToy={deleteToy}/>
             </Col>
           );
         })}

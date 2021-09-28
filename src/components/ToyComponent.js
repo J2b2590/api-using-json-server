@@ -1,6 +1,6 @@
 import { Card, Button } from "react-bootstrap";
 
-function ToyComponent({ toy, addLike }) {
+function ToyComponent({ toy, addLike, deleteToy }) {
   let imgSrc = toy.image;
   let id = toy.id;
   return (
@@ -22,6 +22,13 @@ function ToyComponent({ toy, addLike }) {
 
         <Button onClick={() => addLike(toy)} variant="primary">
           Likes: {toy.likes}
+        </Button>
+        <Button
+          onClick={() => deleteToy()}
+          style={{ margin: "5px" }}
+          variant="danger"
+        >
+          Delete
         </Button>
       </Card.Body>
     </Card>
