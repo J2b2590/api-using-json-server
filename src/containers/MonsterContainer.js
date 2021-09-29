@@ -1,32 +1,32 @@
-import ToyComponent from "../components/ToyComponent";
+import MonsterComponent from "../components/MonsterComponent";
 import { Container, Row, Col } from "react-bootstrap";
 
-function ToyContainer({
-  toys,
+function MonsterContainer({
+  monsters,
   addLike,
-  deleteToy,
-  updateToy,
+  deleteMonster,
+  updateMonster,
   handleSubmitNameChange,
 }) {
   return (
     <Container style={{ justifyContent: "space-around", alignItems: "center" }}>
       <Row md={3}>
-        {toys.map((toy) => {
-          //   console.log(toy);
+        {monsters.map((monster) => {
+          //   console.log(monster);
           return (
             <Col
-              key={toy.id}
+              key={monster.id}
               style={{
                 padding: "5px",
                 justifyContent: "space-around",
                 textAlign: "-webkit-center",
               }}
             >
-              <ToyComponent
+              <MonsterComponent
                 addLike={addLike}
-                toy={toy}
-                deleteToy={deleteToy}
-                updateToy={updateToy}
+                monster={monster}
+                deleteMonster={deleteMonster}
+                updateMonster={updateMonster}
                 handleSubmitNameChange={handleSubmitNameChange}
               />
             </Col>
@@ -37,4 +37,4 @@ function ToyContainer({
   );
 }
 
-export default ToyContainer;
+export default MonsterContainer;

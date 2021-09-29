@@ -1,17 +1,16 @@
 import { Card, Button } from "react-bootstrap";
 import { useState } from "react";
-import ToyForm from "./ToyForm";
 
-function ToyComponent({
-  toy,
+function MonsterComponent({
+  monster,
   addLike,
-  deleteToy,
-  updateToy,
+  deleteMonster,
+  updateMonster,
   handleSubmitNameChange,
 }) {
   const [formNameChange, setFormNameChange] = useState(false);
-  let imgSrc = toy.image;
-  let id = toy.id;
+  let imgSrc = monster.image;
+  let id = monster.id;
   const flipForm = () => {
     if (formNameChange == false) {
       setFormNameChange(true);
@@ -34,13 +33,13 @@ function ToyComponent({
         />
       ) : null}
       <Card.Body>
-        <Card.Title>{toy.name}</Card.Title>
+        <Card.Title>{monster.name}</Card.Title>
 
-        <Button onClick={() => addLike(toy)} variant="primary">
-          Likes: {toy.likes}
+        <Button onClick={() => addLike(monster)} variant="primary">
+          Likes: {monster.likes}
         </Button>
         <Button
-          onClick={() => deleteToy(id)}
+          onClick={() => deleteMonster(id)}
           style={{ margin: "5px" }}
           variant="danger"
         >
@@ -49,11 +48,11 @@ function ToyComponent({
         <Button onClick={() => flipForm(true)}>Change Name</Button>
         {formNameChange ? (
           <div>
-            <form onSubmit={handleSubmitNameChange(toy)}>
+            <form onSubmit={handleSubmitNameChange(monster)}>
               <input
-                onChange={(e) => updateToy(e)}
+                onChange={(e) => updateMonster(e)}
                 type="text"
-                defaultValue={toy.name}
+                defaultValue={monster.name}
                 name="name"
               />
               <button type="submit">submit</button>
@@ -67,4 +66,4 @@ function ToyComponent({
   );
 }
 
-export default ToyComponent;
+export default MonsterComponent;

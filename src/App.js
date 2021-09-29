@@ -3,116 +3,117 @@ import "./App.css";
 import { Button } from "react-bootstrap";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import ToyContainer from "./containers/ToyContainer";
-import ToyForm from "./components/ToyForm";
+import MonsterContainer from "./containers/MonsterContainer";
+import MonsterForm from "./components/MonsterForm";
 
 function App() {
-  const [toys, setToys] = useState([]);
-  const [newToy, setNewToy] = useState([]);
-  const [toyForm, setToyForm] = useState(false);
-  const [newToyName, setNewToyName] = useState("");
+  const [monsters, setMonsters] = useState([]);
+  const [newMonster, setNewMonster] = useState([]);
+  const [monsterForm, setMonsterForm] = useState(false);
+  const [newMonsterName, setNewMonsterName] = useState("");
 
   useEffect(() => {
-    grabToys();
+    grabMonsters();
   }, []);
 
-  const grabToys = () => {
-    axios.get("http://localhost:8000/toys").then((resp) => {
+  const grabMonsters = () => {
+    axios.get("http://localhost:8000/monsters").then((resp) => {
       // console.log(resp.data);
-      setToys(resp.data);
+      setMonsters(resp.data);
     });
   };
-  const addNewToy = () => {
-    axios.post("http://localhost:8000/toys", newToy).then((resp) => {
+  const addNewMonster = () => {
+    axios.post("http://localhost:8000/monsters", newMonster).then((resp) => {
       // console.log(resp);
-      let updatedToys = [...toys, resp.data];
-      setToys(updatedToys);
+      let updatedMonsters = [...monsters, resp.data];
+      setMonsters(updatedMonsters);
     });
   };
 
-  const handleChangeOfToy = (e) => {
+  const handleChangeOfMonster = (e) => {
     e.preventDefault();
 
-    // console.log(e.target.value, "addToy");
-    setNewToy({ ...newToy, [e.target.name]: e.target.value, likes: 0 });
-    console.log(newToy, "new TOy");
+    setNewMonster({ ...newMonster, [e.target.name]: e.target.value, likes: 0 });
+    console.log(newMonster, "new mons");
   };
 
-  const addLike = (toy) => {
-    // console.log({ ...toy }, "LIKE BUTTON");
+  const addLike = (monster) => {
+    // console.log({ ...monster }, "LIKE BUTTON");
     axios
-      .put(`http://localhost:8000/toys/${toy.id}`, {
-        ...toy,
-        likes: toy.likes + 1,
+      .put(`http://localhost:8000/monsters/${monster.id}`, {
+        ...monster,
+        likes: monster.likes + 1,
       })
       .then((resp) => {
         // console.log(resp.data);
 
-        const newLikeToy = resp.data;
-        setToys(
-          toys.map((toy) => {
-            return toy.id === newLikeToy.id ? newLikeToy : toy;
+        const newLikeMonster = resp.data;
+        setMonsters(
+          monsters.map((monster) => {
+            return monster.id === newLikeMonster.id ? newLikeMonster : monster;
           })
         );
       });
   };
 
-  const deleteToy = (id) => {
-    console.log(id, "del toy");
-    axios.delete(`http://localhost:8000/toys/${id}`).then((resp) => {
+  const deletemonster = (id) => {
+    console.log(id, "del monster");
+    axios.delete(`http://localhost:8000/monsters/${id}`).then((resp) => {
       // console.log(resp);
-      setToys(
-        toys.filter((toyId) => {
-          return toyId.id !== id;
+      setMonsters(
+        monsters.filter((monsterId) => {
+          return monsterId.id !== id;
         })
       );
     });
   };
 
-  const handleSubmitNameChange = (toy) => {
-    console.log({ ...toy }, "SUBMIT");
-    console.log(newToyName.name, "newTOy");
+  const handleSubmitNameChange = (monster) => {
+    console.log({ ...monster }, "SUBMIT");
+    console.log(newMonsterName.name, "newmonster");
     axios
-      .put(`http://localhost:8000/toys/${toy.id}`, {
-        ...toy,
-        name: newToyName.name,
+      .put(`http://localhost:8000/monsters/${monster.id}`, {
+        ...monster,
+        name: newMonsterName.name,
       })
       .then((resp) => {
         console.log(resp);
       });
   };
 
-  const updateToy = (e) => {
+  const updatemonster = (e) => {
     e.preventDefault();
     console.log(e.target.name, "update func");
-    setNewToyName({ ...newToyName, [e.target.name]: e.target.value });
+    setNewMonsterName({ ...newMonsterName, [e.target.name]: e.target.value });
   };
 
   const flipForm = () => {
-    if (toyForm == false) {
-      setToyForm(true);
+    if (monsterForm == false) {
+      setMonsterForm(true);
     } else {
-      return setToyForm(false);
+      return setMonsterForm(false);
     }
   };
 
   return (
     <div className="App">
-      <h1>Toy bin</h1>
-      <Button onClick={() => flipForm()}>Add Toy</Button>
-      {toyForm ? (
-        <ToyForm
-          handleChangeOfToy={handleChangeOfToy}
-          addNewToy={addNewToy}
-          toys={toys}
+      <h1>Monster Bin</h1>
+      <Button onClick={() => flipForm()} variant="success">
+        Add Monster
+      </Button>
+      {monsterForm ? (
+        <MonsterForm
+          handleChangeOfMonster={handleChangeOfMonster}
+          addNewMonster={addNewMonster}
+          monsters={monsters}
         />
       ) : null}
 
-      <ToyContainer
+      <MonsterContainer
         addLike={addLike}
-        toys={toys}
-        deleteToy={deleteToy}
-        updateToy={updateToy}
+        monsters={monsters}
+        deletemonster={deletemonster}
+        updatemonster={updatemonster}
         handleSubmitNameChange={handleSubmitNameChange}
       />
     </div>
