@@ -38,7 +38,7 @@ function App() {
   };
 
   const addLike = (toy) => {
-    console.log(toy, "LIKE BUTTON");
+    console.log({ ...toy }, "LIKE BUTTON");
     axios
       .put(`http://localhost:8000/toys/${toy.id}`, {
         ...toy,
@@ -56,8 +56,16 @@ function App() {
       });
   };
 
-  const deleteToy = () => {
-    console.log("del toy");
+  const deleteToy = (id) => {
+    console.log(id, "del toy");
+    axios.delete(`http://localhost:8000/toys/${id}`).then((resp) => {
+      console.log(resp);
+      setToys(
+        toys.filter((toyId) => {
+          return toyId.id !== id;
+        })
+      );
+    });
   };
 
   const flipForm = () => {

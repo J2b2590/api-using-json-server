@@ -24,7 +24,7 @@ function ToyComponent({ toy, addLike, deleteToy }) {
           Likes: {toy.likes}
         </Button>
         <Button
-          onClick={() => deleteToy()}
+          onClick={() => deleteToy(id)}
           style={{ margin: "5px" }}
           variant="danger"
         >
